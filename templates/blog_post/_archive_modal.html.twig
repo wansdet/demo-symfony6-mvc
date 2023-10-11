@@ -1,0 +1,20 @@
+<div class="modal fade" id="archiveModal" tabindex="-1" aria-labelledby="archiveModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="archiveModalLabel">Archive Blog Post</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Are you sure you want to archive this post?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <form method="post" action="{{ path('app_blog_post_archive', {'id': blog_post.id}) }}">
+                    <input type="hidden" name="_token" value="{{ csrf_token('archive' ~ blog_post.id) }}">
+                    <button type="submit" class="btn btn-primary">Archive</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

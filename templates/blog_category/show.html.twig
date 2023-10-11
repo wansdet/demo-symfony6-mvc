@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Blog Category{% endblock %}
+{% block pageHeading %}Blog Category{% endblock %}
+
+{% block main %}
+    <div class="mb-3">
+        <label for="ID">ID</label>
+        <input type="text" value="{{ blog_category.id }}" disabled class="form-control">
+    </div>
+    <div class="mb-3">
+        <label for="Name">Name</label>
+        <input type="text" value="{{ blog_category.name }}" disabled class="form-control">
+    </div>
+    <div class="mb-3">
+        <label for="Active">Active</label>
+        <input type="text" value="{{ blog_category.active ? 'Yes' : 'No' }}" disabled class="form-control">
+    </div>
+    <div class="mb-3">
+        <label for="Sort Order">Sort Order</label>
+        <input type="text" value="{{ blog_category.sortOrder }}" disabled class="form-control">
+    </div>
+    <div class="mb-3">
+        <label for="Created At">Created At</label>
+        <input type="text" value="{{ blog_category.createdAt ? blog_category.createdAt|date('Y-m-d H:i:s') : '' }}" disabled class="form-control">
+    </div>
+    <div class="mb-5">
+        <label for="Updated At">Updated At</label>
+        <input type="text" value="{{ blog_category.updatedAt ? blog_category.updatedAt|date('Y-m-d H:i:s') : '' }}" disabled class="form-control">
+    </div>
+    <div>
+        <a href="{{ path('app_blog_category_index') }}" class="btn btn-secondary"><i class="fa-solid fa-angles-left"></i> Back</a>
+        <a href="{{ path('app_blog_category_edit', {'id': blog_category.id}) }}" class="btn btn-primary"><i class="fa-solid fa-pen"></i> Edit</a>
+    </div>
+{% endblock %}

@@ -1,0 +1,57 @@
+{{ form_start(blogPostForm) }}
+    <div class="mb-3">
+        {{ form_label(blogPostForm.title) }}
+        {{ form_widget(blogPostForm.title) }}
+        {{ form_errors(blogPostForm.title) }}
+    </div>
+    <div class="mb-3">
+        {{ form_label(blogPostForm.slug) }}
+        {{ form_widget(blogPostForm.slug) }}
+        {{ form_errors(blogPostForm.slug) }}
+    </div>
+    <div class="mb-3">
+        {{ form_label(blogPostForm.summary) }}
+        {{ form_widget(blogPostForm.summary) }}
+        {{ form_errors(blogPostForm.summary) }}
+    </div>
+    <div class="mb-3">
+        {{ form_label(blogPostForm.content) }}
+        {{ form_widget(blogPostForm.content) }}
+        {{ form_errors(blogPostForm.content) }}
+    </div>
+    <div class="mb-3">
+        {{ form_label(blogPostForm.blogCategory) }}
+        {{ form_widget(blogPostForm.blogCategory) }}
+        {{ form_errors(blogPostForm.blogCategory) }}
+    </div>
+    <div class="mb-4">
+        {{ form_label(blogPostForm.status) }}
+        {{ form_widget(blogPostForm.status) }}
+        {{ form_errors(blogPostForm.status) }}
+    </div>
+    <div class="mb-5">
+        <a href="{{ path('app_blog_post_blogger_index') }}" class="btn btn-secondary me-2"><i class="fa-solid fa-angles-left"></i> Back</a>
+        <button class="btn btn-primary me-2"><i class="fa-solid fa-floppy-disk"></i> {{ button_label|default('Save') }}</button>
+        {%  if mode == 'edit' %}
+            {% if workflow_can(blog_post, 'submit') %}
+                <button type="button" class="btn btn-success me-2" data-bs-toggle="modal" data-bs-target="#submitModal">
+                    <i class="fa-solid fa-upload"></i> Submit
+                </button>
+            {% endif %}
+            {% if workflow_can(blog_post, 'delete') %}
+                <button type="button" class="btn btn-danger me-2" data-bs-toggle="modal" data-bs-target="#deleteModal">
+                    <i class="fa-solid fa-trash"></i> Delete
+                </button>
+            {% endif %}
+        {% endif %}
+    </div>
+{{ form_end(blogPostForm) }}
+
+{%  if mode == 'edit' %}
+    {% if workflow_can(blog_post, 'submit') %}
+        {% include 'blog_post/_submit_modal.html.twig' %}
+    {% endif %}
+    {% if workflow_can(blog_post, 'delete') %}
+        {% include 'blog_post/_delete_modal.html.twig' %}
+    {% endif %}
+{% endif %}

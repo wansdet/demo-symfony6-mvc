@@ -1,0 +1,15 @@
+{% if status == 'draft' %}
+    <span class="badge bg-secondary">{{ status }}</span>
+{% endif %}
+{% if status == 'submitted' %}
+    <span class="badge bg-primary">{{ status }}</span>
+{% endif %}
+{% if status == 'published' %}
+    <span class="badge bg-success">{{ status }}</span>
+{% endif %}
+{% if status == 'rejected' %}
+    <span class="badge bg-danger">{{ status }}</span>
+{% endif %}
+{% if status == 'archived' %}
+    <span class="badge bg-warning">{{ status }}</span>
+{% endif %}

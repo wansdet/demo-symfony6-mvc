@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}blog_post{% endblock %}
+{% block pageHeading %}Blog{% endblock %}
+
+{% block main %}
+    <div class="row">
+        <h2 class="card-title mb-3">
+            {{ blog_post.title }}
+        </h2>
+        <h6 class="card-subtitle text-muted post-metadata d-flex align-items-center">
+            <span class="metadata"><i class="fa fa-user"></i> {{ blog_post.author.fullName }}</span>
+            <span class="metadata"><i class="fa fa-calendar"></i> {{ blog_post.createdAt ? blog_post.createdAt|date('d-m-Y') : '' }}</span>
+            <span class="metadata"><i class="fa-regular fa-folder-closed"></i> {{ blog_post.blogCategory.name }}</span>
+            {{ include('blog_post/_status.html.twig', {'status': blog_post.status}) }}
+        </h6>
+        <div class="mt-5 mb-4">
+            {{ blog_post.content|raw }}
+        </div>
+        {% if blog_post.blogPostComments|length > 0 %}
+            <h3>Comments</h3>
+            {% for blogComment in blog_post.blogPostComments %}
+                {{ include('blog_post/_blog_post_comments.html.twig', {'blogComment': blogComment, 'admin': true}) }}
+            {% endfor %}
+        {% endif %}
+
+        <div class="d-flex">
+            <a href="{{ path('app_blog_post_blogger_index') }}" class="btn btn-secondary me-2"><i class="fa-solid fa-angles-left"></i> Back</a>
+            {% if workflow_can(blog_post, 'submit') %}
+                <a href="{{ path('app_blog_post_edit', {'id': blog_post.id}) }}" class="btn btn-primary me-2"><i class="fa-solid fa-pen"></i> Edit</a>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

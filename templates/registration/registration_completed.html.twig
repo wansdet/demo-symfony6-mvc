@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}blog_post{% endblock %}
+{% block pageHeading %}Registration Completed{% endblock %}
+
+{% block main %}
+    <div class="row">
+        <div class="col-md-12">
+            <p>Thank you for registering. You can now login to you account.</p>
+            <a href="{{ path('app_login') }}" class="btn btn-primary">Login</a>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Manage Blog Categories{% endblock %}
+{% block pageHeading %}Manage Blog Categories{% endblock %}
+
+{% block main %}
+    <div>
+        <a href="{{ path('app_blog_category_new') }}" class="btn btn-secondary me-2"><i class="fa-solid fa-pen"></i> Create new</a>
+    </div>
+    <table class="table table-striped my-4">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Active</th>
+                <th>Sort Order</th>
+                <th>Created At</th>
+                <th>Updated At</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for blog_category in blog_categories %}
+            <tr>
+                <td>{{ blog_category.id }}</td>
+                <td>{{ blog_category.name }}</td>
+                <td>{{ blog_category.active ? 'Yes' : 'No' }}</td>
+                <td>{{ blog_category.sortOrder }}</td>
+                <td>{{ blog_category.createdAt ? blog_category.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ blog_category.updatedAt ? blog_category.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>
+                    <a href="{{ path('app_blog_category_show', {'id': blog_category.id}) }}" class="btn btn-secondary me-2"><i class="fa-regular fa-eye"></i> Show</a>
+                    <a href="{{ path('app_blog_category_edit', {'id': blog_category.id}) }}" class="btn btn-primary me-2"><i class="fa-solid fa-pen"></i> Edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="7">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

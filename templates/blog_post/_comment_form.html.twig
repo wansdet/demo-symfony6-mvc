@@ -1,0 +1,10 @@
+{{ form_start(commentForm) }}
+    <div class="mb-3">
+        {{ form_label(commentForm.content) }}
+        {{ form_widget(commentForm.content) }}
+        {{ form_errors(commentForm.content) }}
+    </div>
+    <div class="mb-3">
+        <button class="btn btn-primary me-2">Submit Comment</button>
+    </div>
+{{ form_end(commentForm) }}

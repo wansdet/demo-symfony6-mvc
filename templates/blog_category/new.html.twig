@@ -1,0 +1,8 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New BlogCategory{% endblock %}
+{% block pageHeading %}New Blog Category{% endblock %}
+
+{% block main %}
+    {{ include('blog_category/_form.html.twig', {'read_only' : false }) }}
+{% endblock %}

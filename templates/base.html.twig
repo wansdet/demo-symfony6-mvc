@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}Welcome!{% endblock %}</title>
+        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
+        {% block stylesheets %}
+            {{ encore_entry_link_tags('app') }}
+        {% endblock %}
+        {% block javascripts %}
+            {{ encore_entry_script_tags('app') }}
+        {% endblock %}
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+    </head>
+    <body>
+        <nav class="py-2 bg-light border-bottom">
+            <div class="container d-flex flex-wrap">
+                <ul class="nav me-auto">
+                    <li class="nav-item me-2"><a href="{{ path('app_home') }}" class="nav-link link-dark px-2 active"><span id="logo">SymfonyMVC</span></a></li>
+                    <li class="nav-item"><a href="{{ path('app_home') }}" class="nav-link link-dark px-2 active" aria-current="page">Home</a></li>
+                    <li class="nav-item"><a href="{{ path('app_blog_post_index') }}" class="nav-link link-dark px-2">Blog</a></li>
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <!-- Display drop down menu for admin admin blogpost index, admin blog category index, admin blog post comments link -->
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle link-dark px-2" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Admin
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                {% if is_granted('ROLE_BLOGGER') %}
+                                <li><a class="dropdown-item" href="{{ path('app_blog_post_blogger_index') }}">My Blog Posts</a></li>
+                                {% endif %}
+                                {% if is_granted('ROLE_EDITOR') %}
+                                    <li><a class="dropdown-item" href="{{ path('app_blog_post_admin_index') }}">Manage Blog Posts</a></li>
+                                {% endif %}
+                                {% if is_granted('ROLE_MODERATOR') %}
+                                    <li><a class="dropdown-item" href="{{ path('app_blog_post_comment_admin_index') }}">Manage Blog Post Comments</a></li>
+                                {% endif %}
+                                {% if is_granted('ROLE_SUPER_ADMIN') %}
+                                    <li><a class="dropdown-item" href="{{ path('app_blog_category_index') }}">Manage Blog Categories</a></li>
+                                {% endif %}
+                                <li><a class="dropdown-item" href="{{ path('app_document_admin_index') }}">My Documents</a></li>
+                            </ul>
+                        </li>
+                    {% endif %}
+                </ul>
+                <ul class="nav">
+                    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                        <li class="nav-item"><a href="{{ path('app_logout') }}" class="nav-link link-dark px-2">Logout</a></li>
+                    {% else %}
+                        <li class="nav-item"><a href="{{ path('app_login') }}" class="nav-link link-dark px-2">Login</a></li>
+                        <li class="nav-item"><a href="{{ path('app_register') }}" class="nav-link link-dark px-2">Sign up</a></li>
+                    {% endif %}
+                </ul>
+            </div>
+        </nav>
+        <header class="py-3 mb-4 border-bottom">
+            <div class="container d-flex flex-wrap justify-content-center">
+                <div class="d-flex align-items-center mb-3 mb-lg-0 me-lg-auto text-dark text-decoration-none">
+                    <h1>{% block pageHeading %}{% endblock %}</h1>
+                </div>
+                <!--
+                <form class="col-12 col-lg-auto mb-3 mb-lg-0" role="search">
+                    <input type="search" class="form-control" placeholder="Search..." aria-label="Search">
+                </form>
+                -->
+            </div>
+        </header>
+        {% block body %}
+            <div class="container flex-grow-1">
+                <div id="main">
+                    {{ include('default/_flash_messages.html.twig') }}
+
+                    {% block main %}{% endblock %}
+                </div>
+            </div>
+        {% endblock %}
+        <footer class="py-4 bg-light text-center">
+            <div class="container">
+                <p>&copy; {{ 'now'|date('Y') }} Your Company Name. All rights reserved.</p>
+            </div>
+        </footer>
+    </body>
+</html>

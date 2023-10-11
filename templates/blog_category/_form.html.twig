@@ -1,0 +1,33 @@
+{{  form_start(blogCategoryForm) }}
+    <div class="mb-3">
+        {{ form_label(blogCategoryForm.id) }}
+        {%  if read_only %}
+            {{ form_widget(blogCategoryForm.id, {'attr': {'readonly': 'readonly'}}) }}
+        {% else %}
+            {{ form_widget(blogCategoryForm.id) }}
+
+        {% endif %}
+        {{ form_errors(blogCategoryForm.id) }}
+    </div>
+    <div class="mb-3">
+        {{ form_label(blogCategoryForm.name) }}
+        {{ form_widget(blogCategoryForm.name) }}
+        {{ form_errors(blogCategoryForm.name) }}
+    </div>
+    <div class="mb-3">
+        {{ form_label(blogCategoryForm.active) }}
+        {{ form_widget(blogCategoryForm.active) }}
+        {{ form_errors(blogCategoryForm.active) }}
+    </div>
+    <div class="mb-5">
+        {{ form_label(blogCategoryForm.sortOrder) }}
+        {{ form_widget(blogCategoryForm.sortOrder) }}
+        {{ form_errors(blogCategoryForm.sortOrder) }}
+    </div>
+    <div>
+        <button class="btn btn-primary"><i class="fa-solid fa-floppy-disk"></i> {{ button_label|default('Save') }}</button>
+        <a href="{{ path('app_blog_category_index') }}" class="btn btn-secondary"><i class="fa-solid fa-angles-left"></i> Back</a>
+    </div>
+{{ form_end(blogCategoryForm) }}
+
+

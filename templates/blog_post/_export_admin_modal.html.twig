@@ -1,0 +1,20 @@
+<div class="modal fade" id="exportModal" tabindex="-1" aria-labelledby="exportModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exportModalLabel">Export Blog Posts</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Are you sure you want to export the blog posts?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <form method="post" action="{{ path('app_blog_post_export_admin') }}">
+                    <input type="hidden" name="_token" value="{{ csrf_token('export') }}">
+                    <button type="submit" class="btn btn-primary">Export</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

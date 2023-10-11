@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}My Documents{% endblock %}
+{% block pageHeading %}My Documents{% endblock %}
+
+{% block main %}
+    <div class="my-5">
+        {{ knp_pagination_render(pagination, 'knp_paginator/bootstrap_v5_pagination.html.twig') }}
+    </div>
+    <table class="table table-striped mb-4">
+        <thead>
+        <tr>
+            <th width="50%">Filename</th>
+            <th width="20%">Created At</th>
+            <th width="30%">Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for document in pagination %}
+            <tr>
+                <td>{{ document.filename }}</td>
+                <td>{{ document.createdAt ? document.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>
+                    <a href="{{ path('app_document_admin_download', {'id': document.id}) }}" class="btn btn-primary me-2"><i class="fa-solid fa-download"></i> Download</a>
+                    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal" onclick="prepareDeleteModal({{ document.id }}, '{{ csrf_token('delete' ~ document.id) }}')">
+                        <i class="fa-solid fa-trash"></i> Delete
+                    </button>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="7">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <div class="my-5">
+        {{ knp_pagination_render(pagination, 'knp_paginator/bootstrap_v5_pagination.html.twig') }}
+    </div>
+    {% include 'document/_delete_modal.html.twig' %}
+{% endblock %}

@@ -1,0 +1,14 @@
+<div class="col-sm-12 mb-4">
+    <div class="card">
+        <div class="card-body">
+            <h6 class="card-subtitle text-muted post-metadata d-flex align-items-center mb-2">
+                <span class="metadata"><i class="fa fa-user"></i> {{ blogComment.author.fullName }}</span>
+                <span class="metadata"><i class="fa fa-calendar"></i> {{ blogComment.createdAt ? blogComment.createdAt|date('d-m-Y') : '' }}</span>
+                {% if admin %}
+                    {{ include('blog_post/_status.html.twig', {'status': blogComment.status}) }}
+                {% endif %}
+            </h6>
+            <p class="card-text">{{ blogComment.content }}</p>
+        </div>
+    </div>
+</div>

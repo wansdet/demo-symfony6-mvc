@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Blog Category{% endblock %}
+{% block pageHeading %}Edit Blog Category{% endblock %}
+
+{% block main %}
+
+    {{ include('blog_category/_form.html.twig', {'button_label': 'Update', 'read_only' : true }) }}
+
+    <!--{ { include('blog_category/_delete_form.html.twig') }} -->
+{% endblock %}

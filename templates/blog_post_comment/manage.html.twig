@@ -1,0 +1,67 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Blog Post Comment{% endblock %}
+{% block pageHeading %}Blog Post Comment{% endblock %}
+
+{% block main %}
+    <h3>Comment</h3>
+    <div class="mb-3">
+        <label for="id">ID:</label>
+        <input type="text" class="form-control" id="id" value="{{ blog_post_comment.id }}" disabled>
+    </div>
+    <div class="mb-3">
+        <label for="content">Comment:</label>
+        <textarea class="form-control" id="content" disabled>{{ blog_post_comment.content }}</textarea>
+    </div>
+    <div class="mb-3">
+        <label for="author">Author:</label>
+        <input type="text" class="form-control" id="author" value="{{ blog_post_comment.author.fullName }}" disabled>
+    </div>
+    <div class="mb-3">
+        <label for="status">Status:</label>
+        <input type="text" class="form-control" id="status" value="{{ blog_post_comment.status }}" disabled>
+    </div>
+    <div class="mb-3">
+        <label for="createdAt">Created At:</label>
+        <input type="text" class="form-control" id="createdAt" value="{{ blog_post_comment.createdAt ? blog_post_comment.createdAt|date('Y-m-d H:i:s') : '' }}" disabled>
+    </div>
+    <div class="mb-3">
+        <label for="updatedAt">Updated At:</label>
+        <input type="text" class="form-control" id="updatedAt" value="{{ blog_post_comment.updatedAt ? blog_post_comment.updatedAt|date('Y-m-d H:i:s') : '' }}" disabled>
+    </div>
+    <h3>Blog Post</h3>
+    <div class="col-sm-12 mb-4">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">
+                    {{ blog_post_comment.blogPost.title }}
+                </h5>
+                <h6 class="card-subtitle mb-2 text-muted post-metadata">
+                    <span class="metadata"><i class="fa fa-user"></i> {{ blog_post_comment.blogPost.author.fullName }}</span>
+                    <span class="metadata"><i class="fa fa-calendar"></i> {{ blog_post_comment.blogPost.createdAt ? blog_post_comment.blogPost.createdAt|date('d-m-Y') : '' }}</span>
+                    <span class="metadata"><i class="fa-regular fa-folder-closed"></i> {{ blog_post_comment.blogPost.blogCategory.name }}</span>
+                </h6>
+                <p class="card-text">{{ blog_post_comment.blogPost.summary }}</p>
+            </div>
+        </div>
+    </div>
+    <div>
+        <a href="{{ path('app_blog_post_comment_admin_index') }}" class="btn btn-secondary me-2"><i class="fa-solid fa-angles-left"></i> Back</a>
+        {% if workflow_can(blog_post_comment, 'reject') %}
+        <button type="button" class="btn btn-danger me-2" data-bs-toggle="modal" data-bs-target="#rejectModal">
+            <i class="fa-solid fa-arrow-rotate-left"></i> Reject
+        </button>
+        {% endif %}
+        {% if workflow_can(blog_post_comment, 'delete') %}
+        <button type="button" class="btn btn-danger me-2" data-bs-toggle="modal" data-bs-target="#deleteModal">
+            <i class="fa-solid fa-trash"></i> Delete
+        </button>
+        {% endif %}
+    </div>
+    {% if workflow_can(blog_post_comment, 'reject') %}
+        {{ include('blog_post_comment/_reject_modal.html.twig') }}
+    {% endif %}
+    {% if workflow_can(blog_post_comment, 'delete') %}
+        {{ include('blog_post_comment/_delete_modal.html.twig') }}
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}BlogPost index{% endblock %}
+{% block pageHeading %}Blog{% endblock %}
+
+{% block main %}
+    <div class="my-5">
+        {{ knp_pagination_render(pagination, 'knp_paginator/bootstrap_v5_pagination.html.twig') }}
+    </div>
+    {% for blogPost in pagination %}
+        <div class="col-sm-12 mb-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">
+                        <a href="{{ path('app_blog_post_show', {'slug': blogPost.slug}) }}">{{ blogPost.title }}</a>
+                    </h5>
+                    <h6 class="card-subtitle mb-2 text-muted post-metadata">
+                        <span class="metadata"><i class="fa fa-user"></i> {{ blogPost.author.fullName }}</span>
+                        <span class="metadata"><i class="fa fa-calendar"></i> {{ blogPost.createdAt ? blogPost.createdAt|date('d-m-Y') : '' }}</span>
+                        <span class="metadata"><i class="fa-regular fa-folder-closed"></i> {{ blogPost.blogCategory.name }}</span>
+                    </h6>
+                    <p class="card-text">{{ blogPost.summary }}</p>
+                    <a href="{{ path('app_blog_post_show', {'slug': blogPost.slug}) }}" class="card-link">View Post</a>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+    <div class="my-5">
+        {{ knp_pagination_render(pagination, 'knp_paginator/bootstrap_v5_pagination.html.twig') }}
+    </div>
+{% endblock %}

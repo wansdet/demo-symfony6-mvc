@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Admin Manage Blog Posts{% endblock %}
+{% block pageHeading %}Manage Blog Posts{% endblock %}
+
+{% block main %}
+    <div class="my-3">
+        <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#exportModal">
+            <i class="fa-solid fa-upload"></i> Export
+        </button>
+    </div>
+    <div class="my-4">
+        {{ knp_pagination_render(pagination, 'knp_paginator/bootstrap_v5_pagination.html.twig') }}
+    </div>
+    <table class="table table-striped mb-4">
+        <thead>
+        <tr>
+            <th width="10%">ID</th>
+            <th width="30%">Title</th>
+            <th width="20%">Author</th>
+            <th width="10%">Created At</th>
+            <th width="10%">Status</th>
+            <th width="20%">Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for blogPost in pagination %}
+            <tr>
+                <td>{{ blogPost.id }}</td>
+                <td>{{ blogPost.title }}</td>
+                <td>{{ blogPost.author.fullName }}</td>
+                <td>{{ blogPost.createdAt ? blogPost.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ include('blog_post/_status.html.twig', {'status': blogPost.status}) }}</td>
+                <td>
+                    <a href="{{ path('app_blog_post_admin_show', {'slug': blogPost.slug}) }}" class="btn btn-secondary me-2"><i class="fa-regular fa-eye"></i> Show</a>
+                    <a href="{{ path('app_blog_post_manage', {'id': blogPost.id}) }}" class="btn btn-primary me-2"><i class="fa-solid fa-pen"></i> Manage</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="7">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <div class="my-5">
+        {{ knp_pagination_render(pagination, 'knp_paginator/bootstrap_v5_pagination.html.twig') }}
+    </div>
+    {% include 'blog_post/_export_admin_modal.html.twig' %}
+{% endblock %}

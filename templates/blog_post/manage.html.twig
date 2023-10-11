@@ -1,0 +1,83 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Manage Blog Post{% endblock %}
+{% block pageHeading %}Manage Blog Post{% endblock %}
+
+{% block main %}
+    <div class="row">
+        <div class="mb-3">
+            <label for="title">Title:</label>
+            <input type="text" id="title" name="title" value="{{ blog_post.title }}" required class="form-control" disabled>
+        </div>
+        <div class="mb-3">
+            <label for="slug">Slug:</label>
+            <input type="text" id="slug" name="slug" value="{{ blog_post.slug }}" required class="form-control" disabled>
+        </div>
+        <div class="mb-3">
+            <label for="slug">Author:</label>
+            <input type="text" id="author" name="author" value="{{ blog_post.author.fullName }}" required class="form-control" disabled>
+        </div>
+        <div class="mb-3">
+            <label for="summary">Summary:</label>
+            <textarea id="summary" name="summary" rows="3" required class="form-control" disabled>{{ blog_post.summary }}</textarea>
+        </div>
+        <div class="mb-3">
+            <label for="content">Content:</label>
+            <textarea id="content" name="content" rows="20" required class="form-control" disabled>{{ blog_post.content }}</textarea>
+        </div>
+        <div class="mb-3">
+            <label for="publishedAt">Category:</label>
+            <input type="text" id="categoryName" name="categoryName" value="{{ blog_post.blogCategory.name }}" required class="form-control" disabled>
+        </div>
+        <div class="mb-3">
+            <label for="publishedAt">Created At:</label>
+            <input type="text" id="publishedAt" name="publishedAt" value="{{ blog_post.createdAt|date('Y-m-d H:i:s') }}" required class="form-control" disabled>
+        </div>
+        <div class="mb-3">
+            <label for="updatedAt">Updated At:</label>
+            <input type="text" id="updatedAt" name="updatedAt" value="{{ blog_post.updatedAt|date('Y-m-d H:i:s') }}" required class="form-control" disabled>
+        </div>
+        <div class="mb-3">
+
+        </div>
+        <div class="mb-5">
+            <label for="updatedAt">Status:</label>
+            <select id="status" name="status" class="form-control" disabled>
+                <option value="draft"{% if blog_post.status == 'draft' %} selected{% endif %}>Draft</option>
+                <option value="rejected"{% if blog_post.status == 'rejected' %} selected{% endif %}>Rejected</option>
+                <option value="submitted"{% if blog_post.status == 'submitted' %} selected{% endif %}>Submitted</option>
+                <option value="published"{% if blog_post.status == 'published' %} selected{% endif %}>Published</option>
+                <option value="archived"{% if blog_post.status == 'archived' %} selected{% endif %}>Archived</option>
+            </select>
+        </div>
+
+        <div class="d-flex mb-5">
+            <a href="{{ path('app_blog_post_admin_index') }}" class="btn btn-secondary me-2"><i class="fa-solid fa-angles-left"></i> Back</a>
+            {% if workflow_can(blog_post, 'reject') %}
+                <button type="button" class="btn btn-danger me-2" data-bs-toggle="modal" data-bs-target="#rejectModal">
+                    <i class="fa-solid fa-arrow-rotate-left"></i> Reject
+                </button>
+            {% endif %}
+            {% if workflow_can(blog_post, 'publish') %}
+                <button type="button" class="btn btn-success me-2" data-bs-toggle="modal" data-bs-target="#publishModal">
+                    <i class="fa-solid fa-upload"></i> Publish
+                </button>
+            {% endif %}
+            {% if workflow_can(blog_post, 'archive') %}
+                <button type="button" class="btn btn-warning me-2" data-bs-toggle="modal" data-bs-target="#archiveModal">
+                    <i class="fa-solid fa-box-archive"></i> Archive
+                </button>
+            {% endif %}
+        </div>
+    </div>
+    {% if workflow_can(blog_post, 'reject') %}
+        {% include 'blog_post/_reject_modal.html.twig' %}
+        {% include 'blog_post/_publish_modal.html.twig' %}
+    {% endif %}
+    {% if workflow_can(blog_post, 'archive') %}
+        {% include 'blog_post/_archive_modal.html.twig' %}
+    {% endif %}
+    {% if workflow_can(blog_post, 'publish') %}
+        {% include 'blog_post/_publish_modal.html.twig' %}
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,64 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Demo Symfony MVC{% endblock %}
+{% block pageHeading %}Home{% endblock %}
+
+{% block main %}
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+</style>
+<div>
+    <p>
+        This application is a real world demonstration of Symfony MVC architecture with Twig/Webpack Encore/Bootstrap.
+    </p>
+    <p>
+        Please see the README.md file for installation instructions.
+    </p>
+    <p>
+        If you are using Docker Desktop and the local Symfony server, you can utilize the Symfony binary Docker integration.
+        This enables you create Docker containers for services like Redis, RabbitMQ, MySQL, etc. and run them locally.
+        Please see the README_LOCAL_DEVELOPMENT.md file for instructions.
+    </p>
+    <p>
+        Using Doctrine data fixtures and Zenstruck/Foundry bundles, the application can be seeded with users, blog posts and blog post comments.
+    </p>
+    <p>
+        Code quality is maintained with PHPStan, PHP-CS-Fixer, and PHPUnit.
+    </p>
+    <p>
+        The first phase implements a multi-tenant blog application with the following features:
+    </p>
+    <ol>
+        <li>Blog authors are users with role ROLE_BLOGGER</li>
+        <li>Blog editors are users with role ROLE_EDITOR</li>
+        <li>Blog comment moderators are users with role ROLE_MODERATOR</li>
+        <li>Blog post workflow - draft, submitted, rejected, published, archived, deleted</li>
+        <li>Blog post comment workflow - published, rejected, deleted</li>
+        <li>Administration screens for blog post creation, updates and workflow management. Bloggers can submit blog posts. Blog editors manage the workflow</li>
+        <li>Administration screens for blog post comments</li>
+        <li>Generate reports in excel format</li>
+        <li>User document management</li>
+    </ol>
+    <p>
+        The following Symfony features are implemented:
+    </p>
+    <ol>
+        <li>Routing/Controllers</li>
+        <li>Requests/Responses/URL Generation</li>
+        <li>Validation/Error handling/CSRF Protection</li>
+        <li>Models/Relationships/Migrations/Seeding</li>
+        <li>Forms</li>
+        <li>Views/Twig Templates</li>
+        <li>Mailer/Emails</li>
+        <li>Async Messaging/Async Queues</li>
+        <li>Notifications</li>
+        <li>Workflows/State Machines</li>
+        <li>Events</li>
+        <li>Authentication / Firewalls</li>
+        <li>Authorization</li>
+        <li>Doctrine ORM/Query Builder/Pagination</li>
+        <li>Symfony Server Docker Integration</li>
+    </ol>
+</div>
+{% endblock %}
